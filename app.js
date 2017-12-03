@@ -6,9 +6,12 @@ const mongoose   = require('mongoose');
 const path       = require('path');
 
 const app = express();
+
 const PORT = 3000;
+const mainRoutes = require('./routes/main');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.engine('hbs', hbs({
   defaultLayout: 'main',
@@ -20,6 +23,8 @@ app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(mainRoutes);
 
 app.listen(PORT, err => {
   if (err) return console.log(err);
