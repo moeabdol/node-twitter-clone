@@ -8,6 +8,7 @@ const app = express();
 
 const PORT = 3000;
 const mainRoutes = require('./routes/main');
+const userRoutes = require('./routes/users');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(mainRoutes);
+app.use('/users', userRoutes);
 
 app.listen(PORT, err => {
   if (err) return console.log(err);
