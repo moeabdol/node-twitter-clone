@@ -1,14 +1,28 @@
 <div class="starter-template">
-	<h1>Join and Follow Celebrities and Entrepreneurs</h1>
-	<p class="lead">
-    It's Free and will always be, sign up now and enjoy a new social
-    experience.
-  </p>
+  <p class="lead">What is happening?</p>
 </div>
 
-<div id="landing-buttons" class="row justify-content-center">
-  <div class="col-md-8 text-center">
-    <a class="btn btn-primary btn-lg" href="/users/signup">Sign Up</a>
-    <a class="btn btn-primary btn-lg" href="/users/signin">Sign In</a>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <form id="send-tweet" action="post">
+      <input id="tweet" class="form-control" type="text">
+      <br />
+      <button class="btn btn-primary">Tweet</button>
+    </form>
+
+    <br />
+    <br />
+
+    <div id="tweets">
+      <div class="media">
+        <a href="#" class="pr-3">
+          <img src="{{user.photo}}" alt="">
+        </a>
+        <div class="media-body">
+          <h4 class="mt-0">{{ user.name }}</h4>
+          <p>Hello my name is mohammad</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
