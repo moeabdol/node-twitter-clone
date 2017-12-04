@@ -1,3 +1,5 @@
+const passport = require('passport');
+
 const User = require('../models/user');
 
 const getSignup = (req, res) => {
@@ -19,16 +21,42 @@ const postSignup = (req, res, next) => {
       newUser.photo = newUser.gravatar();
 
       newUser.save()
-        .then(() => {
-          req.flash('success', 'User created successfully');
-          res.redirect('/');
+        .then(user => {
+          req.logIn(user, err => {
+            if (err) return next(err);
+
+            req.flash('success', 'User created successfully');
+            res.redirect('/');
+          });
         })
         .catch(err => next(err));
     })
     .catch(err => next(err));
 };
 
+const getSignin = (req, res) => {
+  if (req.user) return res.redirect('/');
+
+  res.render('users/signin');
+};
+
+const postSignin = passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/users/signin',
+  successFlash: true,
+  failureFlash: true
+});
+
+const getSignout = (req, res) => {
+  req.logout();
+  req.flash('success', 'Signed out successfully');
+  res.redirect('/');
+};
+
 module.exports = {
   getSignup,
-  postSignup
+  postSignup,
+  getSignin,
+  postSignin,
+  getSignout
 };

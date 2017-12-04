@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const session    = require('express-session');
 const flash      = require('connect-flash');
 const MongoStore = require('connect-mongo')(session);
+const passport   = require('passport');
 const path       = require('path');
 
 const app = express();
@@ -37,9 +38,14 @@ app.use(session({
 
 app.use(flash());
 
+require('./config/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
   next();
 });
 
