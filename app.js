@@ -9,6 +9,9 @@ const passport   = require('passport');
 const path       = require('path');
 
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+require('./realtime/io')(io);
 
 const PORT = 3000;
 const config = require('./config');
@@ -52,7 +55,7 @@ app.use((req, res, next) => {
 app.use(mainRoutes);
 app.use('/users', userRoutes);
 
-app.listen(PORT, err => {
+http.listen(PORT, err => {
   if (err) return console.log(err);
   console.log('Server listening on port', PORT);
 });
