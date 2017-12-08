@@ -1,6 +1,8 @@
 const passport = require('passport');
+const async = require('async');
 
 const User = require('../models/user');
+const Tweet = require('../models/tweet');
 
 const getSignup = (req, res) => {
   res.render('users/signup');
@@ -53,10 +55,30 @@ const getSignout = (req, res) => {
   res.redirect('/');
 };
 
+const getUser = (req, res, next) => {
+  async.waterfall([
+    callback => {
+      Tweet.find({ owner: req.params.id })
+        .populate('owner')
+        .then(tweets => callback(null, tweets))
+        .catch(err => next(err));
+    },
+
+    tweets => {
+      User.findById(req.params.id)
+        .populate('following')
+        .populate('followers')
+        .then(user => res.render('users/user', { foundUser: user, tweets }))
+        .catch(err => next(err));
+    }
+  ]);
+};
+
 module.exports = {
   getSignup,
   postSignup,
   getSignin,
   postSignin,
-  getSignout
+  getSignout,
+  getUser
 };

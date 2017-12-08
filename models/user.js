@@ -10,9 +10,9 @@ const UserSchema = new Schema({
   name: { type: String, required: true },
   password: { type: String, required: true },
   photo: { type: String },
-  tweets: [{
-    tweet: { type: Schema.Types.ObjectId, ref: 'Tweet' }
-  }]
+  tweets: [{ type: Schema.Types.ObjectId, ref: 'Tweet' }],
+  following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  followers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
 UserSchema.pre('save', function(next) {
