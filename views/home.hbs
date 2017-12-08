@@ -12,6 +12,18 @@
 
     <br />
     <br />
-    <div id="tweets"></div>
+    <div id="tweets">
+      {{#each tweets}}
+        <div class="media">
+          <a class="pr-3" href="#">
+            <img src="{{owner.photo}}" alt="">
+          </a>
+          <div class="media-body">
+            <h4 class="mt-0">{{owner.name}}</h4>
+            <p>{{content}}</p>
+          </div>
+        </div>
+      {{/each}}
+    </div>
   </div>
 </div>
