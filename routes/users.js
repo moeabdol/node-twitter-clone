@@ -14,6 +14,6 @@ router.route('/signin')
 
 router.get('/signout', users.getSignout);
 
-router.get('/:id', users.getUser);
+router.get('/:id', users.getUserProfile);
 
 module.exports = router;

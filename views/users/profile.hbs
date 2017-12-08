@@ -1,0 +1,73 @@
+<div class="starter-template">
+  <h2>{{user.name}}</h2>
+  <img src="{{user.photo}}" alt="">
+  <p class="p-2">
+    <button id="follow" class="btn btn-dark">Follow</button>
+  </p>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <nav class="nav nav-tabs" id="myTab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
+        href="#tweets" role="tab" aria-controls="tweets" aria-selected="true">
+        Tweets
+      </a>
+      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
+        href="#following" role="tab" aria-controls="following"
+        aria-selected="false">
+        Following
+      </a>
+      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab"
+        href="#followers" role="tab" aria-controls="followers"
+        aria-selected="false">
+        Followers
+      </a>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active mt-3" id="tweets" role="tabpanel"
+        aria-labelledby="tweets-tab">
+        {{#each tweets}}
+          <div class="media">
+            <a class="pr-3" href="#">
+              <img src="{{owner.photo}}" alt="">
+            </a>
+            <div class="media-body">
+              <h4 class="mt-0">{{owner.name}}</h4>
+              <p>{{content}}</p>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+
+      <div class="tab-pane fade mt-3" id="following" role="tabpanel"
+        aria-labelledby="following-tab">
+        {{#each foundUser.following}}
+          <div class="media">
+            <a class="pr-3" href="#">
+              <img src="{{photo}}" alt="">
+            </a>
+            <div class="media-body">
+              <h4 class="mt-0">{{name}}</h4>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+
+      <div class="tab-pane fade mt-3" id="followers" role="tabpanel"
+        aria-labelledby="followers-tab">
+        {{#each foundUser.followers}}
+          <div class="media">
+            <a class="pr-3" href="#">
+              <img src="{{photo}}" alt="">
+            </a>
+            <div class="media-body">
+              <h4 class="mt-0">{{name}}</h4>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

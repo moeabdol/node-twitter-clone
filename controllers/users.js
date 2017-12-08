@@ -55,7 +55,7 @@ const getSignout = (req, res) => {
   res.redirect('/');
 };
 
-const getUser = (req, res, next) => {
+const getUserProfile = (req, res, next) => {
   async.waterfall([
     callback => {
       Tweet.find({ owner: req.params.id })
@@ -68,7 +68,7 @@ const getUser = (req, res, next) => {
       User.findById(req.params.id)
         .populate('following')
         .populate('followers')
-        .then(user => res.render('users/user', { foundUser: user, tweets }))
+        .then(user => res.render('users/profile', { foundUser: user, tweets }))
         .catch(err => next(err));
     }
   ]);
@@ -80,5 +80,5 @@ module.exports = {
   getSignin,
   postSignin,
   getSignout,
-  getUser
+  getUserProfile
 };

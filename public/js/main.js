@@ -11,7 +11,7 @@ $(document).ready(function() {
   socket.on('incomingTweets', function(data) {
     var html = '';
     html += '<div class="media">';
-    html += '<a href="#" class="pr-3">';
+    html += `<a href="/users/${data.user._id}" class="pr-3">`;
     html += `<img src="${data.user.photo}" alt="">`;
     html += '</a>';
     html += '<div class="media-body">';
