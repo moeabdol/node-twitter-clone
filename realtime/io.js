@@ -6,6 +6,7 @@ module.exports = io => {
 
     socket.on('tweet', data => {
       console.log(data);
+      io.emit('incomingTweets', { data, user });
     });
   });
 };
