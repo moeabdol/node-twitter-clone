@@ -9,7 +9,6 @@ $(document).ready(function() {
   });
 
   socket.on('incomingTweets', function(data) {
-    console.log(data);
     var html = '';
     html += '<div class="media">';
     html += '<a href="#" class="pr-3">';
