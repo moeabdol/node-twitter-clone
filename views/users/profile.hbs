@@ -1,7 +1,8 @@
 <div class="starter-template">
-  <h2>{{user.name}}</h2>
-  <img src="{{user.photo}}" alt="">
+  <h2>{{foundUser.name}}</h2>
+  <img src="{{foundUser.photo}}" alt="">
   <p class="p-2">
+    <input type="hidden" id="user-id" value="{{foundUser._id}}">
     <button id="follow" class="btn btn-dark">Follow</button>
   </p>
 </div>

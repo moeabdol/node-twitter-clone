@@ -3,6 +3,7 @@ $(document).ready(function() {
 
   $('#send-tweet').submit(function(e) {
     e.preventDefault();
+
     var content = $('#tweet').val();
     socket.emit('tweet', { content: content });
     $('#tweet').val('');
@@ -20,5 +21,22 @@ $(document).ready(function() {
     html += '</div>';
 
     $('#tweets').prepend(html);
+  });
+
+  $('#follow').click(function(e) {
+    e.preventDefault();
+
+    var userId = $('#user-id').val();
+    $.ajax({
+      type: 'POST',
+      url: `/users/follow/${userId}`,
+      success: function() {
+        $('#follow').removeClass('btn-dark').addClass('btn-primary')
+          .html('Following').attr('id', 'unfollow');
+      },
+      error: function(data) {
+        console.log(data);
+      }
+    });
   });
 });
