@@ -74,11 +74,28 @@ const getUserProfile = (req, res, next) => {
   ]);
 };
 
+const postFollowUser = (req, res, next) => {
+  async.parallel([
+    () => {
+      User.update({ _id: req.user._id, following: { $ne: req.params.id }},
+        { $push: { following: req.params.id }})
+        .catch(err => next(err));
+    },
+    () => {
+      User.update({ _id: req.params.id, followers: { $ne: req.user._id }},
+        { $push: { followers: req.user._id }})
+        .catch(err => next(err));
+    }
+  ])
+    .catch(err => next(err));
+};
+
 module.exports = {
   getSignup,
   postSignup,
   getSignin,
   postSignin,
   getSignout,
-  getUserProfile
+  getUserProfile,
+  postFollowUser
 };
