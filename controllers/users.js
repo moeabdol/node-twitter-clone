@@ -107,6 +107,26 @@ const postFollowUser = (req, res, next) => {
   });
 };
 
+const postUnfollowUser = (req, res, next) => {
+  async.parallel([
+    callback => {
+      User.update({ _id: req.user._id },
+        { $pull: { following: req.params.id }})
+        .then(() => callback())
+        .catch(err => next(err));
+    },
+    callback => {
+      User.update({ _id: req.params.id },
+        { $pull: { followers: req.user._id }})
+        .then(() => callback())
+        .catch(err => next(err));
+    }
+  ], err => {
+    if (err) return next(err);
+    res.status(200).json('Success');
+  });
+};
+
 module.exports = {
   getSignup,
   postSignup,
@@ -114,5 +134,6 @@ module.exports = {
   postSignin,
   getSignout,
   getUserProfile,
-  postFollowUser
+  postFollowUser,
+  postUnfollowUser
 };

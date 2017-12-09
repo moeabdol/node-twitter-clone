@@ -23,7 +23,7 @@ $(document).ready(function() {
     $('#tweets').prepend(html);
   });
 
-  $('#follow').click(function(e) {
+  $(document).on('click', '#follow', function(e) {
     e.preventDefault();
 
     var userId = $('#user-id').val();
@@ -38,5 +38,32 @@ $(document).ready(function() {
         console.log(data);
       }
     });
+  });
+
+  $(document).on('click', '#unfollow', function(e) {
+    e.preventDefault();
+
+    var userId = $('#user-id').val();
+    $.ajax({
+      type: 'POST',
+      url: `/users/unfollow/${userId}`,
+      success: function() {
+        $('#unfollow').removeClass('btn-primary btn-danger')
+          .addClass('btn-dark').html('Follow').attr('id', 'follow');
+      },
+      error: function(data) {
+        console.log(data);
+      }
+    });
+  });
+
+  $(document).on('mouseenter', '#unfollow', function() {
+    $(this).removeClass('btn-primary').addClass('btn-danger')
+      .html('Unfollow');
+  });
+
+  $(document).on('mouseleave', '#unfollow', function() {
+    $(this).removeClass('btn-danger').addClass('btn-primary')
+      .html('Following');
   });
 });
