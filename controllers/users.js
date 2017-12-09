@@ -63,12 +63,25 @@ const getUserProfile = (req, res, next) => {
         .then(tweets => callback(null, tweets))
         .catch(err => next(err));
     },
-
     tweets => {
       User.findById(req.params.id)
         .populate('following')
         .populate('followers')
-        .then(user => res.render('users/profile', { foundUser: user, tweets }))
+        .then(user => {
+          let currentUser = false;
+          if (req.user._id.equals(user._id)) currentUser = true;
+
+          const follower = user.followers.some(friend => {
+            return friend.equals(req.user._id);
+          });
+
+          res.render('users/profile', {
+            foundUser: user,
+            tweets,
+            currentUser,
+            follower
+          });
+        })
         .catch(err => next(err));
     }
   ]);

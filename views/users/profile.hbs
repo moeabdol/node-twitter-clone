@@ -1,10 +1,17 @@
 <div class="starter-template">
   <h2>{{foundUser.name}}</h2>
   <img src="{{foundUser.photo}}" alt="">
-  <p class="p-2">
-    <input type="hidden" id="user-id" value="{{foundUser._id}}">
-    <button id="follow" class="btn btn-dark">Follow</button>
-  </p>
+
+  {{#unless currentUser}}
+    <p class="p-2">
+      <input type="hidden" id="user-id" value="{{foundUser._id}}">
+      {{#if follower}}
+        <button id="unfollow" class="btn btn-primary">Following</button>
+      {{else}}
+        <button id="follow" class="btn btn-dark">Follow</button>
+      {{/if}}
+    </p>
+  {{/unless}}
 </div>
 
 <div class="row justify-content-center">
